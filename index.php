@@ -5,7 +5,7 @@
     // Get customers for selected category
     $query = "SELECT firstName, lastName FROM customers order by lastName;";
     //Result set
-    $customers = $db->query($query);
+    $customers = $conn->query($query);
 ?>
 <!DOCTYPE html>
 <html>
