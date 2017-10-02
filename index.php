@@ -3,17 +3,17 @@
 
   
 //Set search term or hard-code the parameter value
- $categoryID = 1;
+ $state = 'CA';
 
- $query = "SELECT categoryName FROM categories WHERE 
- categoryID = ?";
+ $query = "SELECT firstName, lastName, city FROM customers WHERE 
+ state = ?";
  $stmt = $conn->prepare($query);
- $stmt->bind_param('s', $categoryID);
+ $stmt->bind_param('s', $state);
  $stmt->execute();
 
  $stmt->store_result();
  //store result fields in variables
- $stmt->bind_result($categoryName);
+ $stmt->bind_result($firstName, $lastName, $city);
  
 ?>
 <!DOCTYPE html>
@@ -41,13 +41,15 @@
             <!-- display a table of categories -->
             <table>
                 <tr>
-                    <th>Category ID</th>
-                    <th>Category Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>City</th>
                 </tr>
                <?php while ($stmt->fetch()){ ?>
                <tr>
-                   <td><?php echo $categoryID; ?> </td>
-                   <td><?php echo $categoryName; ?> </td>
+                   <td><?php echo $firstName; ?> </td>
+                   <td><?php echo $lastName; ?> </td>
+                   <td><?php echo $city; ?> </td>
                </tr>
                <?php }
                $stmt->free_result();
