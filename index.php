@@ -6,7 +6,7 @@
  $state = 'CA';
 
  $query = "SELECT firstName, lastName, city FROM customers WHERE 
- state = ?";
+ state = ? order by lastName";
  $stmt = $conn->prepare($query);
  $stmt->bind_param('s', $state);
  $stmt->execute();
