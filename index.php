@@ -1,19 +1,18 @@
 <?php
     require_once('database.php');
 
-  
-//Set search term or hard-code the parameter value
- $state = 'CA';
 
- $query = "SELECT firstName, lastName, city FROM customers WHERE 
- state = ? order by lastName";
+ //midterm query
+ $version = 2.0;
+
+ $query = "SELECT productCode, name FROM products WHERE version= 2.0";
  $stmt = $conn->prepare($query);
- $stmt->bind_param('s', $state);
+ //$stmt->bind_param('s', $customerID);
  $stmt->execute();
 
  $stmt->store_result();
  //store result fields in variables
- $stmt->bind_result($firstName, $lastName, $city);
+ $stmt->bind_result($name, $productCode);
  
 ?>
 <!DOCTYPE html>
@@ -35,21 +34,17 @@
 
     <div id="main">
         
-        <h1>Category List</h1>
-
-        <div id="content">
-            <!-- display a table of categories -->
+            
+        <h1>Product List</h1> 
             <table>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>City</th>
+                    <th>Name</th>
+                    <th>Code</th>
                 </tr>
                <?php while ($stmt->fetch()){ ?>
                <tr>
-                   <td><?php echo $firstName; ?> </td>
-                   <td><?php echo $lastName; ?> </td>
-                   <td><?php echo $city; ?> </td>
+                   <td><?php echo $name; ?> </td>
+                   <td><?php echo $productCode; ?> </td>
                </tr>
                <?php }
                $stmt->free_result();
